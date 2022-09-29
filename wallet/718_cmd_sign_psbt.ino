@@ -30,8 +30,10 @@ CommandResponse executeSignPsbt(String commandData) {
     network = &Mainnet;
   } else if (networkName == "Testnet") {
     network = &Testnet;
+  } else if (networkName == "Regtest") {
+    network = &Regtest;
   } else {
-    return { "Unknown Network", "Must be Mainent or Testnet"};
+    return { "Unknown Network", "Must be Mainnet or Testnet"};
   }
 
   PSBT psbt = parseBase64Psbt(psbtBase64);

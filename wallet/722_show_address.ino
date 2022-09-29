@@ -9,8 +9,10 @@
     2 - address: String. Address derviced by the client. Used for validation
    @return CommandResponse
 */
-CommandResponse executeShowAddress(String addressData) {
-  if (global.authenticated == false) {
+CommandResponse executeShowAddress(String addressData)
+{
+  if (global.authenticated == false)
+  {
     return {"Enter password!", "8 numbers/letters"};
   }
 
@@ -18,17 +20,26 @@ CommandResponse executeShowAddress(String addressData) {
   String path = getWordAtPosition(addressData, 1);
   String address = getWordAtPosition(addressData, 2);
 
-
-  const Network * network;
-  if (networkName == "Mainnet") {
+  const Network *network;
+  if (networkName == "Mainnet")
+  {
     network = &Mainnet;
-  } else if (networkName == "Testnet") {
+  }
+  else if (networkName == "Testnet")
+  {
     network = &Testnet;
-  } else {
-    return {"Unknown Network",  "Must be Mainnet or Testnet"};
+  }
+  else if (networkName == "Regtest")
+  {
+    network = &Regtest;
+  }
+  else
+  {
+    return {"Unknown Network", "Must be Mainnet or Testnet"};
   }
 
-  if (isEmptyParam(path)) {
+  if (isEmptyParam(path))
+  {
     return {"Derivation path missing!", "Address cannot be derived"};
   }
 
@@ -36,11 +47,20 @@ CommandResponse executeShowAddress(String addressData) {
 
   HDPrivateKey pK = hd.derive(path);
   String derivedAddress = pK.address();
+<<<<<<< HEAD
 
-  if (isEmptyParam(address)) {
-    logInfo("Address cannot be validated. Path: " + path + " address: " + derivedAddress );
-  } else if (!derivedAddress.equals(address)) {
+  if (isEmptyParam(address))
+  {
+    logInfo("Address cannot be validated. Path: " + path + " address: " + derivedAddress);
+  }
+  else if (!derivedAddress.equals(address))
+  {
     return {"Danger! Address missmatch!", "Derived address different thant the UI address"};
+=======
+  if (!derivedAddress.equals(address))
+  {
+    return {"Danger! Address missmatch!", "Derived address different than the UI address"};
+>>>>>>> b253f71 (fix regtest support)
   }
 
   sendCommandOutput(COMMAND_ADDRESS, "1 " + derivedAddress);

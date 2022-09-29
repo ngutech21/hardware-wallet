@@ -24,6 +24,8 @@ CommandResponse executeXpub(String commandData) {
     network = &Mainnet;
   } else if (networkName == "Testnet") {
     network = &Testnet;
+  } else if (networkName == "Regtest") {
+    network = &Regtest;
   } else {
     return {"Unknown Network",  "Must be Mainnet or Testnet"};
   }
